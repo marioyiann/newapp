@@ -44,7 +44,7 @@ newapp/
 |		
 |-- dev/
 |		|-- assets/						# assets
-|		|			|-- bootstrap/ 			# bootstrap fonts + javascript + stylesheets
+|		|		|-- bootstrap/ 			# bootstrap fonts + javascript + stylesheets
 |		|
 |		|-- js							# folder to create your custom javascript files
 |		|
