@@ -5,7 +5,8 @@ var gulp = require('gulp'),
 		uglify = require('gulp-uglify'),
 		livereload= require('gulp-livereload'),
 		imagemin = require('gulp-imagemin'),
-		prefix = require('gulp-autoprefixer');
+		prefix = require('gulp-autoprefixer'),
+		webserver = require('gulp-webserver');
 	
 function onError(err) {
   console.log(err);
@@ -38,6 +39,23 @@ gulp.task('image', function(){
 		.pipe(gulp.dest('app/img/'));
 });
 
+// Run webserver http://localhost:8000/
+gulp.task('webserver', function() {
+  gulp.src('app')
+    .pipe(webserver({
+      livereload: {
+        enable: true, // need this set to true to enable livereload
+        filter: function(fileName) {
+          if (fileName.match(/.map$/)) { // exclude all source maps from livereload
+            return false;
+          } else {
+            return true;
+          }
+        }
+      }
+    }));
+});
+
 // Watch
 gulp.task('watch', function(){
 
@@ -47,4 +65,4 @@ gulp.task('watch', function(){
 	gulp.watch('dev/js/*.js', ['scripts']);
 });
 
-gulp.task('default', ['sass', 'scripts', 'image', 'watch']);
+gulp.task('default', ['sass', 'scripts', 'image', 'webserver', 'watch']);
